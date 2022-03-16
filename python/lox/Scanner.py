@@ -4,6 +4,8 @@
 # Last Modified 03/16/2022.
 
 from Token import Token, TokenType
+from LoxErrors import LoxError
+
 class Scanner:
     def __init__(self, source: str):
 
@@ -77,8 +79,7 @@ class Scanner:
                 self._line += 1
             self.advance()
         if self.isAtEnd():
-            print("Unterminated string.")
-            return None
+            raise LoxError(self._line, "Unterminated string.")
         self.advance()
         self.addToken(TokenType.STRING, self._source[self._start + 1:self._current - 1])
     
@@ -160,7 +161,7 @@ class Scanner:
             elif self.isAlpha(c):
                 self.identifier()
             else:
-                print("Unexpected character.")
+                raise LoxError(self._line, f"Unexpected character: {c}")
         
     def scanTokens(self):
         while not self.isAtEnd():
