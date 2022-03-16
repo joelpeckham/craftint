@@ -1,3 +1,8 @@
+# Scanner.py 
+# This is mostly a 1-to-1 port of Scanner.java from the jLox language.
+# Written by Joel Peckham.
+# Last Modified 03/16/2022.
+
 from Token import Token, TokenType
 class Scanner:
     def __init__(self, source: str):
