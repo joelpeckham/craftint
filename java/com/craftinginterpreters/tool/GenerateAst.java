@@ -206,35 +206,4 @@ public class GenerateAst {
 //< omit
   }
 //< define-type
-//> pastry-visitor
-  interface PastryVisitor {
-    void visitBeignet(Beignet beignet); // [overload]
-    void visitCruller(Cruller cruller);
-  }
-//< pastry-visitor
-//> pastries
-  abstract class Pastry {
-//> pastry-accept
-    abstract void accept(PastryVisitor visitor);
-//< pastry-accept
-  }
-
-  class Beignet extends Pastry {
-//> beignet-accept
-    @Override
-    void accept(PastryVisitor visitor) {
-      visitor.visitBeignet(this);
-    }
-//< beignet-accept
-  }
-
-  class Cruller extends Pastry {
-//> cruller-accept
-    @Override
-    void accept(PastryVisitor visitor) {
-      visitor.visitCruller(this);
-    }
-//< cruller-accept
-  }
-//< pastries
 }
