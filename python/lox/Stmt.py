@@ -17,22 +17,14 @@ class Block(Stmt):
 	def accept(self, visitor):
 		return visitor.visitBlock(self)
 
-class ClassStmt(Stmt):
-	def __init__(self, name, methods):
-		"""ClassStmt      : Token name, List<Stmt.Function> methods"""
-		self.name = name
-		self.methods = methods
-	def accept(self, visitor):
-		return visitor.visitClassStmt(self)
-
-class ClassStmt(Stmt):
+class Class(Stmt):
 	def __init__(self, name, superclass, methods):
-		"""ClassStmt      : Token name, Expr.Variable superclass, List<Stmt.Function> methods"""
+		"""Class          : Token name, Expr.Variable superclass, List<Stmt.Function> methods"""
 		self.name = name
 		self.superclass = superclass
 		self.methods = methods
 	def accept(self, visitor):
-		return visitor.visitClassStmt(self)
+		return visitor.visitClass(self)
 
 class Expression(Stmt):
 	def __init__(self, expression):
@@ -50,14 +42,14 @@ class Function(Stmt):
 	def accept(self, visitor):
 		return visitor.visitFunction(self)
 
-class IfStmt(Stmt):
+class If(Stmt):
 	def __init__(self, condition, thenBranch, elseBranch):
-		"""IfStmt         : Expr condition, Stmt thenBranch, Stmt elseBranch"""
+		"""If             : Expr condition, Stmt thenBranch, Stmt elseBranch"""
 		self.condition = condition
 		self.thenBranch = thenBranch
 		self.elseBranch = elseBranch
 	def accept(self, visitor):
-		return visitor.visitIfStmt(self)
+		return visitor.visitIf(self)
 
 class Print(Stmt):
 	def __init__(self, expression):
@@ -66,13 +58,13 @@ class Print(Stmt):
 	def accept(self, visitor):
 		return visitor.visitPrint(self)
 
-class ReturnStmt(Stmt):
+class Return(Stmt):
 	def __init__(self, keyword, value):
-		"""ReturnStmt     : Token keyword, Expr value"""
+		"""Return         : Token keyword, Expr value"""
 		self.keyword = keyword
 		self.value = value
 	def accept(self, visitor):
-		return visitor.visitReturnStmt(self)
+		return visitor.visitReturn(self)
 
 class Var(Stmt):
 	def __init__(self, name, initializer):
@@ -82,52 +74,48 @@ class Var(Stmt):
 	def accept(self, visitor):
 		return visitor.visitVar(self)
 
-class WhileStmt(Stmt):
+class While(Stmt):
 	def __init__(self, condition, body):
-		"""WhileStmt      : Expr condition, Stmt body"""
+		"""While          : Expr condition, Stmt body"""
 		self.condition = condition
 		self.body = body
 	def accept(self, visitor):
-		return visitor.visitWhileStmt(self)
+		return visitor.visitWhile(self)
 
 class StmtVisitor(ABC):
 	@abstractmethod
-	def visitBlock(self, block):
+	def visitBlockStmt(self, blockStmt):
 		pass
 
 	@abstractmethod
-	def visitClassStmt(self, classstmt):
+	def visitClassStmt(self, classStmt):
 		pass
 
 	@abstractmethod
-	def visitClassStmt(self, classstmt):
+	def visitExpressionStmt(self, expressionStmt):
 		pass
 
 	@abstractmethod
-	def visitExpression(self, expression):
+	def visitFunctionStmt(self, functionStmt):
 		pass
 
 	@abstractmethod
-	def visitFunction(self, function):
+	def visitIfStmt(self, ifStmt):
 		pass
 
 	@abstractmethod
-	def visitIfStmt(self, ifstmt):
+	def visitPrintStmt(self, printStmt):
 		pass
 
 	@abstractmethod
-	def visitPrint(self, print):
+	def visitReturnStmt(self, returnStmt):
 		pass
 
 	@abstractmethod
-	def visitReturnStmt(self, returnstmt):
+	def visitVarStmt(self, varStmt):
 		pass
 
 	@abstractmethod
-	def visitVar(self, var):
-		pass
-
-	@abstractmethod
-	def visitWhileStmt(self, whilestmt):
+	def visitWhileStmt(self, whileStmt):
 		pass
 

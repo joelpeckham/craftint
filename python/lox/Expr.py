@@ -108,50 +108,50 @@ class Variable(Expr):
 
 class ExprVisitor(ABC):
 	@abstractmethod
-	def visitAssign(self, assign):
+	def visitAssignExpr(self, assignExpr):
 		pass
 
 	@abstractmethod
-	def visitBinary(self, binary):
+	def visitBinaryExpr(self, binaryExpr):
 		pass
 
 	@abstractmethod
-	def visitCall(self, call):
+	def visitCallExpr(self, callExpr):
 		pass
 
 	@abstractmethod
-	def visitGet(self, get):
+	def visitGetExpr(self, getExpr):
 		pass
 
 	@abstractmethod
-	def visitGrouping(self, grouping):
+	def visitGroupingExpr(self, groupingExpr):
 		pass
 
 	@abstractmethod
-	def visitLiteral(self, literal):
+	def visitLiteralExpr(self, literalExpr):
 		pass
 
 	@abstractmethod
-	def visitLogical(self, logical):
+	def visitLogicalExpr(self, logicalExpr):
 		pass
 
 	@abstractmethod
-	def visitSet(self, set):
+	def visitSetExpr(self, setExpr):
 		pass
 
 	@abstractmethod
-	def visitSuper(self, super):
+	def visitSuperExpr(self, superExpr):
 		pass
 
 	@abstractmethod
-	def visitThis(self, this):
+	def visitThisExpr(self, thisExpr):
 		pass
 
 	@abstractmethod
-	def visitUnary(self, unary):
+	def visitUnaryExpr(self, unaryExpr):
 		pass
 
 	@abstractmethod
-	def visitVariable(self, variable):
+	def visitVariableExpr(self, variableExpr):
 		pass
 

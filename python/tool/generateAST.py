@@ -50,7 +50,7 @@ def defineAST(outputDir, baseClassName, typeList):
         f.write(f"class {baseClassName}Visitor(ABC):\n")
         for t in typeList:
             f.write(f"\t@abstractmethod\n")
-            f.write(f"\tdef visit{t.name}(self, {t.name.lower()}):\n")
+            f.write(f"\tdef visit{t.name}{baseClassName}(self, {t.name.lower()}{baseClassName}):\n")
             f.write("\t\tpass\n\n")
 
 
@@ -71,15 +71,14 @@ expressionList = [
 
 statementList = [
     "Block          : List<Stmt> statements",
-    "ClassStmt      : Token name, List<Stmt.Function> methods",
-    "ClassStmt      : Token name, Expr.Variable superclass, List<Stmt.Function> methods",
+    "Class          : Token name, Expr.Variable superclass, List<Stmt.Function> methods",
     "Expression     : Expr expression",
     "Function       : Token name, List<Token> params, List<Stmt> body",
-    "IfStmt         : Expr condition, Stmt thenBranch, Stmt elseBranch",
+    "If             : Expr condition, Stmt thenBranch, Stmt elseBranch",
     "Print          : Expr expression",
-    "ReturnStmt     : Token keyword, Expr value",
+    "Return         : Token keyword, Expr value",
     "Var            : Token name, Expr initializer",
-    "WhileStmt      : Expr condition, Stmt body"
+    "While          : Expr condition, Stmt body"
 ]
 
 # Actually define the AST classes and write them to the output directory.
