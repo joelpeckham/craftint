@@ -4,7 +4,6 @@
 # Last Modified: 2022-03-17.
 
 from abc import ABC, abstractmethod
-from Token import Token
 
 class Stmt(ABC):
 	@abstractmethod
