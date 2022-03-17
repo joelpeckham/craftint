@@ -2,7 +2,7 @@
 # This is a tool to generate the AST classes for Lox.
 # When run, this script outputs Expr.py and Stmt.py.
 # Written by: Joel Peckham.
-# Last Modified: 03/16/2022.
+# Last Modified: 03/17/2022.
 
 class GrammarNotation:
     def __init__(self, notationString):
