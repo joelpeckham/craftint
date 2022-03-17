@@ -167,5 +167,5 @@ class Scanner:
         while not self.isAtEnd():
             self._start = self._current
             self.scanToken()
-        self.addToken(TokenType.EOF, "", None, self._line)
+        self.addToken(TokenType.EOF, "")
         return self._tokens

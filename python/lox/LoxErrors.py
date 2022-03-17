@@ -23,7 +23,7 @@ class TokenError(Exception):
         else:
             return f"[line {self.token.line}] Error at '{self.token.lexeme}': {self.message}"
 
-class RuntimeError(Exception):
+class LoxRuntimeError(Exception):
     def __init__(self, token, message):
         self.message = message
         self.token = token
