@@ -13,7 +13,7 @@ class Expr(ABC):
 
 class Assign(Expr):
 	def __init__(self, name, value):
-		# Assign   : Token name, Expr value
+		"""Assign   : Token name, Expr value"""
 		self.name = name
 		self.value = value
 	def accept(self, visitor):
@@ -21,7 +21,7 @@ class Assign(Expr):
 
 class Binary(Expr):
 	def __init__(self, left, operator, right):
-		# Binary   : Expr left, Token operator, Expr right
+		"""Binary   : Expr left, Token operator, Expr right"""
 		self.left = left
 		self.operator = operator
 		self.right = right
@@ -30,7 +30,7 @@ class Binary(Expr):
 
 class Call(Expr):
 	def __init__(self, callee, paren, arguments):
-		# Call     : Expr callee, Token paren, List<Expr> arguments
+		"""Call     : Expr callee, Token paren, List<Expr> arguments"""
 		self.callee = callee
 		self.paren = paren
 		self.arguments = arguments
@@ -39,7 +39,7 @@ class Call(Expr):
 
 class Get(Expr):
 	def __init__(self, object, name):
-		# Get      : Expr object, Token name
+		"""Get      : Expr object, Token name"""
 		self.object = object
 		self.name = name
 	def accept(self, visitor):
@@ -47,21 +47,21 @@ class Get(Expr):
 
 class Grouping(Expr):
 	def __init__(self, expression):
-		# Grouping : Expr expression
+		"""Grouping : Expr expression"""
 		self.expression = expression
 	def accept(self, visitor):
 		return visitor.visitGrouping(self)
 
 class Literal(Expr):
 	def __init__(self, value):
-		# Literal  : Object value
+		"""Literal  : Object value"""
 		self.value = value
 	def accept(self, visitor):
 		return visitor.visitLiteral(self)
 
 class Logical(Expr):
 	def __init__(self, left, operator, right):
-		# Logical  : Expr left, Token operator, Expr right
+		"""Logical  : Expr left, Token operator, Expr right"""
 		self.left = left
 		self.operator = operator
 		self.right = right
@@ -70,7 +70,7 @@ class Logical(Expr):
 
 class Set(Expr):
 	def __init__(self, object, name, value):
-		# Set      : Expr object, Token name, Expr value
+		"""Set      : Expr object, Token name, Expr value"""
 		self.object = object
 		self.name = name
 		self.value = value
@@ -79,7 +79,7 @@ class Set(Expr):
 
 class Super(Expr):
 	def __init__(self, keyword, method):
-		# Super    : Token keyword, Token method
+		"""Super    : Token keyword, Token method"""
 		self.keyword = keyword
 		self.method = method
 	def accept(self, visitor):
@@ -87,14 +87,14 @@ class Super(Expr):
 
 class This(Expr):
 	def __init__(self, keyword):
-		# This     : Token keyword
+		"""This     : Token keyword"""
 		self.keyword = keyword
 	def accept(self, visitor):
 		return visitor.visitThis(self)
 
 class Unary(Expr):
 	def __init__(self, operator, right):
-		# Unary    : Token operator, Expr right
+		"""Unary    : Token operator, Expr right"""
 		self.operator = operator
 		self.right = right
 	def accept(self, visitor):
@@ -102,7 +102,7 @@ class Unary(Expr):
 
 class Variable(Expr):
 	def __init__(self, name):
-		# Variable : Token name
+		"""Variable : Token name"""
 		self.name = name
 	def accept(self, visitor):
 		return visitor.visitVariable(self)

@@ -37,7 +37,7 @@ def defineAST(outputDir, baseClassName, typeList):
             f.write(f"\nclass {t.name}({baseClassName}):\n")
             parameterString = ", ".join([f"{x[1]}" for x in t.fields])
             f.write(f"\tdef __init__(self, {parameterString}):\n")
-            f.write(f"\t\t# {t.notationString}\n")
+            f.write(f'\t\t"""{t.notationString}"""\n')
             for field in t.fields:
                 f.write(f"\t\tself.{field[1]} = {field[1]}\n")
             f.write("\tdef accept(self, visitor):\n")
