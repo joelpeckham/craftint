@@ -24,14 +24,14 @@ def defineAST(outputDir, baseClassName, typeList):
         # Parse the strings in the type list
         typeList = [GrammarNotation(typeString) for typeString in typeList]
 
-        # Write a visitor class containing the visit methods for each type.
-        # This visitor class is used to visit each type in the type list.
-        # The visit methods are abstract methods.
+        # Write a base class for the AST.
         f.write("\n")
         f.write(f"class {baseClassName}(ABC):\n")
         f.write("\t@abstractmethod\n")
         f.write("\tdef accept(self, visitor):\n")
         f.write("\t\tpass\n")
+
+        # Write a class for each type with an accept method.
         for t in typeList:
             f.write(f"\nclass {t.name}({baseClassName}):\n")
             parameterString = ", ".join([f"{x[1]}" for x in t.fields])
@@ -43,8 +43,6 @@ def defineAST(outputDir, baseClassName, typeList):
             f.write(f"\t\treturn visitor.visit{t.name}(self)\n")
         
         # Write a visitor class containing the visit methods for each type.
-        # This visitor class is used to visit each type in the type list.
-        # The visit methods are abstract methods.
         f.write("\n")
         f.write(f"class {baseClassName}Visitor(ABC):\n")
         for t in typeList:
