@@ -5,9 +5,10 @@
 
 import argparse, traceback
 from LoxErrors import LoxError, TokenError, LoxRuntimeError
+from AstPrinter import AstPrinter
 from Token import TokenType, Token
 from Scanner import Scanner
-# from Parser import Parser
+from Parser import Parser
 # from Interpreter import Interpreter
 # from Resolver import Resolver
 # interpreter = Interpreter()
@@ -17,8 +18,14 @@ def run(source):
     tokens = scanner.scanTokens()
     for token in tokens:
         print(token)
-    # parser = Parser(tokens)
-    # statements = parser.parse()
+    parser = Parser(tokens)
+    statements = parser.parse()
+    print(len(statements))
+    print(statements)
+    for statement in statements:
+        printer = AstPrinter()
+        print(statement, type(statement))
+        print(printer.print(statement))
 
 
 def runPrompt():

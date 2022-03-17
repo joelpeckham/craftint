@@ -2,7 +2,6 @@
 # Written by: Joel Peckham.
 # Last Modified: 2022-03-17.
 
-from xml.etree.ElementPath import _token
 from Token import TokenType, Token
 from LoxErrors import LoxRuntimeError, TokenError
 from typing import List
@@ -76,6 +75,7 @@ class Parser:
                 return self.varDeclaration()
             return self.statement()
         except Exception as e:
+            print(e)
             self.synchronize()
             return None
     
@@ -236,10 +236,10 @@ class Parser:
         return expr
     
     def comparison(self) -> Expr.Expr:
-        expr = self.addition()
+        expr = self.term()
         while self.match([TokenType.GREATER, TokenType.GREATER_EQUAL, TokenType.LESS, TokenType.LESS_EQUAL]):
             operator = self.previous()
-            right = self.addition()
+            right = self.term()
             expr = Expr.Binary(expr, operator, right)
         return expr
     

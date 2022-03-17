@@ -43,7 +43,7 @@ def defineAST(outputDir, baseClassName, typeList):
             for field in t.fields:
                 f.write(f"\t\tself.{field[1]} = {field[1]}\n")
             f.write("\tdef accept(self, visitor):\n")
-            f.write(f"\t\treturn visitor.visit{t.name}(self)\n")
+            f.write(f"\t\treturn visitor.visit{t.name}{baseClassName}(self)\n")
         
         # Write a visitor class containing the visit methods for each type.
         f.write("\n")

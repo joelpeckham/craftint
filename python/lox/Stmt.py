@@ -15,7 +15,7 @@ class Block(Stmt):
 		"""Block          : List<Stmt> statements"""
 		self.statements = statements
 	def accept(self, visitor):
-		return visitor.visitBlock(self)
+		return visitor.visitBlockStmt(self)
 
 class Class(Stmt):
 	def __init__(self, name, superclass, methods):
@@ -24,14 +24,14 @@ class Class(Stmt):
 		self.superclass = superclass
 		self.methods = methods
 	def accept(self, visitor):
-		return visitor.visitClass(self)
+		return visitor.visitClassStmt(self)
 
 class Expression(Stmt):
 	def __init__(self, expression):
 		"""Expression     : Expr expression"""
 		self.expression = expression
 	def accept(self, visitor):
-		return visitor.visitExpression(self)
+		return visitor.visitExpressionStmt(self)
 
 class Function(Stmt):
 	def __init__(self, name, params, body):
@@ -40,7 +40,7 @@ class Function(Stmt):
 		self.params = params
 		self.body = body
 	def accept(self, visitor):
-		return visitor.visitFunction(self)
+		return visitor.visitFunctionStmt(self)
 
 class If(Stmt):
 	def __init__(self, condition, thenBranch, elseBranch):
@@ -49,14 +49,14 @@ class If(Stmt):
 		self.thenBranch = thenBranch
 		self.elseBranch = elseBranch
 	def accept(self, visitor):
-		return visitor.visitIf(self)
+		return visitor.visitIfStmt(self)
 
 class Print(Stmt):
 	def __init__(self, expression):
 		"""Print          : Expr expression"""
 		self.expression = expression
 	def accept(self, visitor):
-		return visitor.visitPrint(self)
+		return visitor.visitPrintStmt(self)
 
 class Return(Stmt):
 	def __init__(self, keyword, value):
@@ -64,7 +64,7 @@ class Return(Stmt):
 		self.keyword = keyword
 		self.value = value
 	def accept(self, visitor):
-		return visitor.visitReturn(self)
+		return visitor.visitReturnStmt(self)
 
 class Var(Stmt):
 	def __init__(self, name, initializer):
@@ -72,7 +72,7 @@ class Var(Stmt):
 		self.name = name
 		self.initializer = initializer
 	def accept(self, visitor):
-		return visitor.visitVar(self)
+		return visitor.visitVarStmt(self)
 
 class While(Stmt):
 	def __init__(self, condition, body):
@@ -80,7 +80,7 @@ class While(Stmt):
 		self.condition = condition
 		self.body = body
 	def accept(self, visitor):
-		return visitor.visitWhile(self)
+		return visitor.visitWhileStmt(self)
 
 class StmtVisitor(ABC):
 	@abstractmethod

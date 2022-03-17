@@ -5,6 +5,9 @@
 
 from Expr import ExprVisitor
 from Stmt import StmtVisitor
+from Expr import Expr
+from Stmt import Stmt
+from Token import Token
 
 class AstPrinter(ExprVisitor, StmtVisitor):
     def __init__(self):
@@ -23,14 +26,23 @@ class AstPrinter(ExprVisitor, StmtVisitor):
         s += ")"
         return s
 
-    # def parenthesizeParts(self, name, partList):
-    #     s = f"({name}"
-    #     s += self.transformParts(partList)
-    #     s += ")"
-    #     return s
+    def parenthesizeParts(self, name, partList):
+        s = f"({name}"
+        s += self.transformParts(partList)
+        s += ")"
+        return s
     
-    # def transformParts(self, partList):
-    #     pass
+    def transformParts(self, partList):
+        s = ""
+        for part in partList:
+            s += " "
+            if isinstance(part, Token):
+                s += part.lexeme
+            elif isinstance(part, list):
+                s += self.transformParts(part)
+            else:
+                s += self.print(part)
+        return s
     def visitBlockStmt(self, block):
         s = "(block "
         for stmt in block.statements:
@@ -64,9 +76,9 @@ class AstPrinter(ExprVisitor, StmtVisitor):
     
     def visitIfStmt(self, ifStmt):
         if ifStmt.elseBranch:
-            return self.parenthesize("if-else", [ifStmt.condition, ifStmt.thenBranch, ifStmt.elseBranch])
+            return self.parenthesizeParts("if-else", [ifStmt.condition, ifStmt.thenBranch, ifStmt.elseBranch])
         else:
-            return self.parenthesize("if", [ifStmt.condition, ifStmt.thenBranch])
+            return self.parenthesizeParts("if", [ifStmt.condition, ifStmt.thenBranch])
     
     def visitPrintStmt(self, printStmt):
         return self.parenthesize("print", [printStmt.expression])
@@ -76,24 +88,24 @@ class AstPrinter(ExprVisitor, StmtVisitor):
 
     def visitVarStmt(self, varStmt):
         if varStmt.initializer:
-            return self.parenthesize("var", [varStmt.name, varStmt.initializer])
+            return self.parenthesizeParts("var", [varStmt.name, varStmt.initializer])
         else:
-            return self.parenthesize("var", [varStmt.name])
+            return self.parenthesizeParts("var", [varStmt.name])
     
     def visitWhileStmt(self, whileStmt):
-        return self.parenthesize("while", [whileStmt.condition, whileStmt.body])
+        return self.parenthesizeParts("while", [whileStmt.condition, whileStmt.body])
     
     def visitAssignExpr(self, assignExpr):
-        return self.parenthesize("=", [assignExpr.name.lexeme, assignExpr.value])
+        return self.parenthesizeParts("=", [assignExpr.name.lexeme, assignExpr.value])
     
     def visitBinaryExpr(self, binaryExpr):
         return self.parenthesize(binaryExpr.operator.lexeme, [binaryExpr.left, binaryExpr.right])
     
     def visitCallExpr(self, callExpr):
-        return self.parenthesize("call", [callExpr.callee, *callExpr.args])
+        return self.parenthesizeParts("call", [callExpr.callee, *callExpr.args])
     
     def visitGetExpr(self, getExpr):
-        return self.parenthesize(".", [getExpr.object, getExpr.name])
+        return self.parenthesizeParts(".", [getExpr.object, getExpr.name])
     
     def visitGroupingExpr(self, groupingExpr):
         return self.parenthesize("group", [groupingExpr.expression])
@@ -108,10 +120,10 @@ class AstPrinter(ExprVisitor, StmtVisitor):
         return self.parenthesize(logicalExpr.operator.lexeme, [logicalExpr.left, logicalExpr.right])
 
     def visitSetExpr(self, setExpr):
-        return self.parenthesize("=", [setExpr.object, setExpr.name.lexeme, setExpr.value])
+        return self.parenthesizeParts("=", [setExpr.object, setExpr.name.lexeme, setExpr.value])
     
     def visitSuperExpr(self, superExpr):
-        return self.parenthesize("super", [superExpr.method])
+        return self.parenthesizeParts("super", [superExpr.method])
     
     def visitThisExpr(self, thisExpr):
         return "this"
