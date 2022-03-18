@@ -20,14 +20,7 @@ def run(source):
         print(token)
     parser = Parser(tokens)
     statements = parser.parse()
-    print(len(statements))
-    print(statements)
-    for statement in statements:
-        printer = AstPrinter()
-        print(statement, type(statement))
-        print(printer.print(statement))
-
-
+    
 def runPrompt():
     while True:
         try:

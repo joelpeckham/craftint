@@ -43,6 +43,7 @@ class AstPrinter(ExprVisitor, StmtVisitor):
             else:
                 s += self.print(part)
         return s
+        
     def visitBlockStmt(self, block):
         s = "(block "
         for stmt in block.statements:
