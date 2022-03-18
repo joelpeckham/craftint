@@ -9,17 +9,18 @@ from AstPrinter import AstPrinter
 from Token import TokenType, Token
 from Scanner import Scanner
 from Parser import Parser
-# from Interpreter import Interpreter
-# from Resolver import Resolver
-# interpreter = Interpreter()
+from Interpreter import Interpreter
+from Resolver import Resolver
+interpreter = Interpreter()
 
 def run(source):
     scanner = Scanner(source)
     tokens = scanner.scanTokens()
-    for token in tokens:
-        print(token)
     parser = Parser(tokens)
     statements = parser.parse()
+    resolver = Resolver(interpreter)
+    resolver.resolve(statements)
+    interpreter.interpret(statements)
     
 def runPrompt():
     while True:
@@ -32,7 +33,7 @@ def runPrompt():
             break
         except Exception as e:
             print(e)
-            traceback.print_exc()
+            # traceback.print_exc()
             exit(70)
             
 
