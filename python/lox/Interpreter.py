@@ -128,7 +128,7 @@ class Interpreter(E.ExprVisitor, S.StmtVisitor):
     
     def visitAssignExpr(self, expr: E.Assign):
         value = expr.value.accept(self)
-        distance = self.locals.get(expr.name, None)
+        distance = self.locals.get(expr, None)
         if distance != None:
             self.environment.assignAt(distance, expr.name, value)
         else:

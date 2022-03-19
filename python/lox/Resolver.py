@@ -60,10 +60,12 @@ class Resolver(E.ExprVisitor, S.StmtVisitor):
         self.scopes[-1][name.lexeme] = True
     
     def resolveLocal(self, expr: E.Expr, name: Token):
-        for i in range(len(self.scopes) - 1, -1, -1):
+        i = len(self.scopes) - 1
+        while i >= 0:
             if name.lexeme in self.scopes[i]:
-                self.interpreter.resolve(expr, self.scopes[i][name.lexeme])
+                self.interpreter.resolve(expr, len(self.scopes) - 1 - i);
                 return
+            i -= 1
 
     def visitBlockStmt(self, block: S.Block):
         self.beginScope()

@@ -38,7 +38,7 @@ class Environment():
         return self.ancestor(distance).values.get(name)
     
     def assignAt(self, distance: int, name: Token, value):
-        self.ancestor(distance).assign(name, value)
+        self.ancestor(distance).values[name.lexeme] = value
     
     def __str__(self) -> str:
         return str(self.values) + " -> " + str(self.enclosing) if self.enclosing else ""
