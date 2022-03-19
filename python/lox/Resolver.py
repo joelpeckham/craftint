@@ -187,7 +187,7 @@ class Resolver(E.ExprVisitor, S.StmtVisitor):
         self.resolve(expr.right)
     
     def visitVariableExpr(self, expr: E.Variable):
-        if len(self.scopes) != 0 and expr.name.lexeme not in self.scopes[-1]:
+        if len(self.scopes) != 0 and self.scopes[-1].get(expr.name.lexeme, None) == False:
             raise LoxRuntimeError(expr.name, "Cannot read local variable in its own initializer.")
         self.resolveLocal(expr, expr.name)
         

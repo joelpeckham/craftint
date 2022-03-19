@@ -19,9 +19,8 @@ class LoxClass(LoxCallable):
         return self.name
 
     def findMethod(self, name: str) -> LoxFunction:
-        for method in self.methods:
-            if method.name == name:
-                return method
+        if name in self.methods:
+            return self.methods[name]
         if self.superclass:
             return self.superclass.findMethod(name)
         return None

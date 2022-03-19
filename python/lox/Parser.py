@@ -74,7 +74,7 @@ class Parser:
             if self.match([TokenType.VAR]):
                 return self.varDeclaration()
             return self.statement()
-        except Exception as e:
+        except TokenError as e:
             print(e)
             self.synchronize()
             return None
@@ -184,12 +184,13 @@ class Parser:
         if not self.check(TokenType.RIGHT_PAREN):
             do = True
             while do:
-                if len(parameters) >= 8:
-                    raise TokenError(self.peek(), "Cannot have more than 8 parameters.")
+                if len(parameters) >= 255:
+                    raise TokenError(self.peek(), "Cannot have more than 255 parameters.")
                 parameters.append(self.consume(TokenType.IDENTIFIER, "Expect parameter name."))
                 if not self.match([TokenType.COMMA]):
                     do = False
         self.consume(TokenType.RIGHT_PAREN, f"Expect ')' after {kind} parameters.")
+        self.consume(TokenType.LEFT_BRACE, f"Expect '{{' before {kind} body.")
         body = self.block()
         return Stmt.Function(name, parameters, body)
     
@@ -208,6 +209,9 @@ class Parser:
             if isinstance(expr, Expr.Variable):
                 name = expr.name
                 return Expr.Assign(name, value)
+            elif isinstance(expr, Expr.Get):
+                return Expr.Set(expr.object, expr.name, value)
+
             raise TokenError(equals, "Invalid assignment target.")
         return expr
 
