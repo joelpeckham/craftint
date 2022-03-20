@@ -35,7 +35,7 @@ def runPrompt():
         except Exception as e:
             print(e, file=sys.stderr)
             # traceback.print_exc()
-            exit(70)
+            # exit(70)
             
 
 def runFile(path):
