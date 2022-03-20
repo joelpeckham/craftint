@@ -12,6 +12,7 @@ from Parser import Parser
 from Interpreter import Interpreter
 from Resolver import Resolver
 interpreter = Interpreter()
+import sys
 
 def run(source):
     scanner = Scanner(source)
@@ -32,7 +33,7 @@ def runPrompt():
             print("\nBye!")
             break
         except Exception as e:
-            print(e)
+            print(e, file=sys.stderr)
             # traceback.print_exc()
             exit(70)
             
@@ -42,12 +43,9 @@ def runFile(path):
         source = f.read()
     try:
         run(source)
-    except LoxError as e:
-        print(e)
+    except Exception as e:
+        print(e, file=sys.stderr)
         exit(65)
-    except LoxRuntimeError as e:
-        print(e)
-        exit(70)
 
 # Get args from command line.
 parser = argparse.ArgumentParser(description='Lox interpreter.')

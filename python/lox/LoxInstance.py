@@ -25,5 +25,5 @@ class LoxInstance:
         self.fields[name.lexeme] = value
     
     def __str__(self):
-        return f"<instance of {self.klass.name}>"
+        return f"{self.klass.name} instance"
     

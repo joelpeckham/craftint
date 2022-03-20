@@ -7,6 +7,7 @@ from LoxErrors import LoxRuntimeError, TokenError
 from typing import List
 import Expr
 import Stmt
+import sys
 
 class Parser:
     def __init__(self, tokens: List[Token]):
@@ -75,7 +76,7 @@ class Parser:
                 return self.varDeclaration()
             return self.statement()
         except TokenError as e:
-            print(e)
+            print(e, file=sys.stderr)
             self.synchronize()
             return None
     

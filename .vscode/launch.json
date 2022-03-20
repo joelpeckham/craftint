@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args":["/Users/joel/Documents/School/OPL/craftint/python/test/testCode/benchmark/binary_trees.lox"]
+            "args":["/Users/joel/Documents/School/OPL/craftint/python/test/testCode/variable/use_this_as_var.lox"]
         }
     ]
 }

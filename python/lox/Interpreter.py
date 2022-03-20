@@ -3,6 +3,7 @@
 # Written by Joel Peckham.
 # Last Modified: 2020-03-18.
 
+from numpy import isin
 import Expr as E
 import Stmt as S
 from Token import Token, TokenType
@@ -22,7 +23,7 @@ class ClockCallable(LoxCallable):
     def call(self, interpreter, arguments):
         return time()
     def __str__(self):
-        return "<native fn> (clock)"
+        return "<native fn>"
 
 class Interpreter(E.ExprVisitor, S.StmtVisitor):
     def __init__(self):
@@ -87,8 +88,8 @@ class Interpreter(E.ExprVisitor, S.StmtVisitor):
     def isTruthy(self, obj) -> bool:
         if obj == None:
             return False
-        if obj == False:
-            return False
+        if isinstance(obj, bool):
+            return obj
         return True
 
     def visitIfStmt(self, stmt: S.If):
@@ -104,6 +105,16 @@ class Interpreter(E.ExprVisitor, S.StmtVisitor):
             return obj
         if isinstance(obj, bool):
             return "true" if obj else "false"
+        if isinstance(obj, float):
+            if obj == int(obj):
+                if obj == 0:
+                    if str(obj).startswith("-"):
+                        return "-0"
+                    else:
+                        return "0"
+                return str(int(obj))
+            else:
+                return str(obj)
         return str(obj)
 
     def visitPrintStmt(self, stmt: S.Print):
@@ -139,6 +150,8 @@ class Interpreter(E.ExprVisitor, S.StmtVisitor):
         if a == None and b == None:
             return True
         if a == None:
+            return False
+        if type(a) != type(b):
             return False
         return a == b
     
@@ -182,6 +195,8 @@ class Interpreter(E.ExprVisitor, S.StmtVisitor):
             raise LoxRuntimeError(expr.operator, "Operands must be two numbers or two strings.")
         if opType == TokenType.SLASH:
             self.checkNumberOperands(expr.operator, left, right)
+            if right == 0:
+                return float('nan')
             return float(left) / float(right)
         if opType == TokenType.STAR:
             self.checkNumberOperands(expr.operator, left, right)
