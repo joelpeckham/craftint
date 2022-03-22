@@ -3,16 +3,12 @@
 # Written by: Joel Peckham.
 # Last Modified: 2022-03-17.
 
-import argparse, traceback
-from LoxErrors import LoxError, TokenError, LoxRuntimeError
-from AstPrinter import AstPrinter
-from Token import TokenType, Token
+import argparse, sys
 from Scanner import Scanner
 from Parser import Parser
 from Interpreter import Interpreter
 from Resolver import Resolver
 interpreter = Interpreter()
-import sys
 
 def run(source):
     scanner = Scanner(source)

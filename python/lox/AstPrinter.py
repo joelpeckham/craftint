@@ -5,8 +5,6 @@
 
 from Expr import ExprVisitor
 from Stmt import StmtVisitor
-from Expr import Expr
-from Stmt import Stmt
 from Token import Token
 
 class AstPrinter(ExprVisitor, StmtVisitor):

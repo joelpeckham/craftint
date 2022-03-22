@@ -6,9 +6,7 @@
 import Expr as E
 import Stmt as S
 from Token import Token
-from Environment import Environment
 from Interpreter import Interpreter
-from LoxCallable import LoxCallable
 from LoxErrors import LoxRuntimeError
 from collections import deque
 from enum import Enum, auto

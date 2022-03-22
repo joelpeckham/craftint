@@ -4,8 +4,6 @@
 # Last Modified: 2020-03-18.
 
 from LoxCallable import LoxCallable
-from typing import List
-from LoxErrors import LoxRuntimeError
 import Stmt as S
 from Environment import Environment
 from LoxInstance import LoxInstance

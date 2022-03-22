@@ -5,7 +5,6 @@
 
 from LoxCallable import LoxCallable
 from typing import List
-from LoxErrors import LoxRuntimeError
 from LoxFunction import LoxFunction
 from LoxInstance import LoxInstance
 

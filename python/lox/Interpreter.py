@@ -3,7 +3,6 @@
 # Written by Joel Peckham.
 # Last Modified: 2020-03-18.
 
-from numpy import isin
 import Expr as E
 import Stmt as S
 from Token import Token, TokenType

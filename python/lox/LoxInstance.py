@@ -3,9 +3,7 @@
 # Written by Joel Peckham.
 # Last Modified: 2020-03-18.
 
-from typing import List
 from LoxErrors import LoxRuntimeError
-# from LoxClass import LoxClass
 from Token import Token
 
 class LoxInstance:

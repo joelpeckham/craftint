@@ -3,7 +3,7 @@
 # Last Modified: 2022-03-17.
 
 from Token import TokenType, Token
-from LoxErrors import LoxRuntimeError, TokenError
+from LoxErrors import TokenError
 from typing import List
 import Expr
 import Stmt

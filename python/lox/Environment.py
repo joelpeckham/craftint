@@ -3,8 +3,8 @@
 # Written by Joel Peckham.
 # Last Modified: 2020-03-18.
 
-from LoxErrors import LoxError, TokenError, LoxRuntimeError
-from Token import TokenType, Token
+from LoxErrors import TokenError
+from Token import Token
 
 class Environment():
     def __init__(self, enclosing=None):
