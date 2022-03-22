@@ -24,6 +24,14 @@ class ClockCallable(LoxCallable):
     def __str__(self):
         return "<native fn>"
 
+class InputCallable(LoxCallable):
+    def arity(self) -> int:
+        return 0
+    def call(self, interpreter, arguments):
+        return input()
+    def __str__(self):
+        return "<native fn>"
+
 class Interpreter(E.ExprVisitor, S.StmtVisitor):
     def __init__(self):
         self.globals = Environment()
@@ -31,6 +39,7 @@ class Interpreter(E.ExprVisitor, S.StmtVisitor):
         self.locals = {}
 
         self.globals.define("clock", ClockCallable())
+        self.globals.define("input", InputCallable())
     
     def interpret(self, statements: List[S.Stmt]):
         try:
